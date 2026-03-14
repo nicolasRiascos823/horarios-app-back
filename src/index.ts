@@ -24,9 +24,13 @@ app.use(helmet());
 
 // Rate limiting deshabilitado para evitar errores 429
 
-// CORS
+// CORS: permite uno o varios orígenes separados por coma (sin barra final)
+const corsOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000')
+  .split(',')
+  .map((url) => url.trim().replace(/\/$/, ''))
+  .filter(Boolean);
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: corsOrigins.length === 1 ? corsOrigins[0] : corsOrigins,
   credentials: true
 }));
 
