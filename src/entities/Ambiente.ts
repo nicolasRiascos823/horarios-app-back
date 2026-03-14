@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('ambientes')
 export class Ambiente {
@@ -20,10 +20,10 @@ export class Ambiente {
   @Column({ default: true })
   activo: boolean;
 
-  @CreateDateColumn()
+  @Column({ type: 'datetime', nullable: false, update: false })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
   @OneToMany('Horario', 'ambiente')

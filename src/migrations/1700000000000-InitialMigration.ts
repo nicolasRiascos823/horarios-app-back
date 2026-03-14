@@ -12,8 +12,8 @@ export class InitialMigration1700000000000 implements MigrationInterface {
         \`nombre\` varchar(255) NOT NULL,
         \`programa\` varchar(255) NOT NULL,
         \`jornada\` enum('Diurna', 'Nocturna', 'Mixta') NOT NULL,
-        \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-        \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+        \`createdAt\` datetime NOT NULL,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX \`IDX_fichas_codigo\` (\`codigo\`),
         PRIMARY KEY (\`id\`)
       ) ENGINE=InnoDB
@@ -30,8 +30,8 @@ export class InitialMigration1700000000000 implements MigrationInterface {
         \`telefono\` varchar(255) NULL,
         \`especialidad\` varchar(255) NOT NULL,
         \`activo\` tinyint NOT NULL DEFAULT 1,
-        \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-        \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+        \`createdAt\` datetime NOT NULL,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX \`IDX_instructores_documento\` (\`documento\`),
         UNIQUE INDEX \`IDX_instructores_email\` (\`email\`),
         PRIMARY KEY (\`id\`)
@@ -47,8 +47,8 @@ export class InitialMigration1700000000000 implements MigrationInterface {
         \`tipo\` varchar(255) NOT NULL,
         \`capacidad\` int NOT NULL,
         \`activo\` tinyint NOT NULL DEFAULT 1,
-        \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-        \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+        \`createdAt\` datetime NOT NULL,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX \`IDX_ambientes_codigo\` (\`codigo\`),
         PRIMARY KEY (\`id\`)
       ) ENGINE=InnoDB
@@ -65,8 +65,8 @@ export class InitialMigration1700000000000 implements MigrationInterface {
         \`horaInicio\` int NOT NULL,
         \`horaFin\` int NOT NULL,
         \`duracion\` int NOT NULL,
-        \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-        \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+        \`createdAt\` datetime NOT NULL,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX \`IDX_horarios_instructor_dia_hora\` (\`instructorId\`, \`diaSemana\`, \`horaInicio\`),
         UNIQUE INDEX \`IDX_horarios_ambiente_dia_hora\` (\`ambienteId\`, \`diaSemana\`, \`horaInicio\`),
         UNIQUE INDEX \`IDX_horarios_ficha_dia_hora\` (\`fichaId\`, \`diaSemana\`, \`horaInicio\`),

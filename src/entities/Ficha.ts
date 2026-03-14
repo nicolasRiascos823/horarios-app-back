@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('fichas')
 export class Ficha {
@@ -17,10 +17,10 @@ export class Ficha {
   @Column({ type: 'enum', enum: ['Diurna', 'Nocturna', 'Mixta'] })
   jornada: 'Diurna' | 'Nocturna' | 'Mixta';
 
-  @CreateDateColumn()
+  @Column({ type: 'datetime', nullable: false, update: false })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
   @OneToMany('Horario', 'ficha')

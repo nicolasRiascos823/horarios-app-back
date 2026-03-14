@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('instructores')
 export class Instructor {
@@ -26,10 +26,10 @@ export class Instructor {
   @Column({ default: true })
   activo: boolean;
 
-  @CreateDateColumn()
+  @Column({ type: 'datetime', nullable: false, update: false })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
   @OneToMany('Horario', 'instructor')

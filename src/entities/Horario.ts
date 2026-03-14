@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
 
 @Entity('horarios')
 @Unique(['instructor', 'diaSemana', 'horaInicio'])
@@ -29,10 +29,10 @@ export class Horario {
   @Column({ type: 'int' })
   duracion: number; // Duración en horas
 
-  @CreateDateColumn()
+  @Column({ type: 'datetime', nullable: false, update: false })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
   @ManyToOne('Ficha', 'horarios', { onDelete: 'CASCADE' })

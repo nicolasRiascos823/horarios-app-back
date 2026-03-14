@@ -4,6 +4,7 @@ import { Ficha } from '../entities/Ficha';
 import { Instructor } from '../entities/Instructor';
 import { Ambiente } from '../entities/Ambiente';
 import { Horario } from '../entities/Horario';
+import { TimestampSubscribers } from '../subscribers/TimestampSubscriber';
 
 config();
 
@@ -18,7 +19,7 @@ export const AppDataSource = new DataSource({
   logging: process.env.NODE_ENV === 'true',
   entities: [Ficha, Instructor, Ambiente, Horario],
   migrations: ['src/migrations/*.ts'],
-  subscribers: ['src/subscribers/*.ts'],
+  subscribers: TimestampSubscribers,
 });
 
 export const initializeDatabase = async (): Promise<void> => {
