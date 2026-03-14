@@ -74,6 +74,24 @@ app.use('*', (req, res) => {
   });
 });
 
+// Auto-ping al health cada 10 min para mantener el servicio activo (ej. Render)
+const HEALTH_PING_INTERVAL_MS = 10 * 60 * 1000; // 10 minutos
+
+function startHealthPing() {
+  const baseUrl = process.env.RENDER_EXTERNAL_URL || process.env.APP_URL;
+  if (!baseUrl) return;
+  const healthUrl = `${baseUrl.replace(/\/$/, '')}/api/health`;
+  setInterval(async () => {
+    try {
+      const res = await fetch(healthUrl);
+      if (res.ok) console.log('[Health ping] Servicio manteniendose activo');
+    } catch (err) {
+      console.warn('[Health ping] Error:', (err as Error).message);
+    }
+  }, HEALTH_PING_INTERVAL_MS);
+  console.log(`⏱️ Health ping cada 10 min hacia ${healthUrl}`);
+}
+
 // Función para iniciar el servidor
 async function startServer() {
   try {
@@ -84,6 +102,7 @@ async function startServer() {
     app.listen(PORT, () => {
       console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+      startHealthPing();
     });
   } catch (error) {
     console.error('❌ Error al iniciar el servidor:', error);
